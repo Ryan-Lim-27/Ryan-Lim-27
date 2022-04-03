@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      table, td, tr, th {
+        border: 1px solid black;
+        height: 30px;
+        vertical-align: center;
+        text-align: center;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 50%;
+      }     
+    </style>
+  </head>
+  <body>
+    <h1> Marine Fish tank logger</h1>
+    <h2> <b>Instructions on how to use</b></h2>
+    <p> 1. Fill all the empty fills with numbers only.<br>
+        2. For the salt field, enter the value that you have read off the Salinity Meter. <br>
+        3. For Nitrate, enter the value from the colour chat after comparing with the tested water colour. <br>
+        4. Enter the individual values from the respective syringes. Just enter the number that you are reading off the syring into the correct fields. <b>All values enterd from pH onwards is only in a range from 0.00 to 1.00</b> <br>
+        5. Press Check <b> When you confirm that the values entered are correct. IGNORE THE TABLE AT THE MOMENT!!</b><br>
+        6. Press Submit. <br>
+        To see the exact values from the test you have just done, just refresh the page to see the values shown in the table.
+
+
+
+    <? var data = getData(); ?>
+    <table id="tableTest">
+      <? for (var i = 0; i < 1; i++) { ?>
+        <thead>
+          <? for (var j = 0; j < data[i].length; j++) { ?>
+            <th><?= data[i][j] ?></th>
+          <? } ?>
+        </thead>
+      <? } ?>
+      <tbody id="tblbdy">
+        <tr id="rows">
+        <? for (var j = 0; j < data[1].length; j++) { ?>
+            <td><?= data[1][j] ?></td>
+        <? } ?>
+      </tbody>
+    </table>
+
+
+    <label>Salinity:</label><input type="number" id="salt"><br>
+    <label>Nitrate:</label><input type="number" id="nitrate"><br>
+    <label>pH:</label><input type="number" id="ph"><br>
+    <label>Kh:</label><input type="number" id="kh"><br>
+    <label>Calcium:</label><input type="number" id="ca"><br>
+    <label>Magnisium:</label><input type="number" id="mg"><br>
+
+    <button id ="btnC" >Check</button>
+    <br>
+    <button id ="btnS" onclick = "submit()" style="padding: 15px 32px; text-align: center; font-size: 16px;" >Submit</button>
+
+  <script>
+    var tableBody = document.getElementById("tblbdy");
+    document.getElementById("mg").addEventListener("input",putvalue);
+    document.getElementById("mg").addEventListener("input",updateTbl);
+    
+    function submit(){
+      google.script.run.addData();
+    }
+
+    function putvalue(){
+      var values = {"salt":0,"nitrate":0,"ph":0,"kh":0,"ca":0,"mg":0};
+      for (let x in values){
+        values[x]=document.getElementById(x).value;
+      }
+      google.script.run.userInput(values);
+    }
+
+    function updateTbl(dataArray){
+      //var r=dataArray[1];
+      console.log(dataArray);
+
+    }
+    document.getElementById("btnC").addEventListener("click",function(){
+      putvalue();
+      google.script.run.withSuccessHandler(updateTbl).dat();
+      
+    });
+
+  </script>
+
+  </body>
+</html>
