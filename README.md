@@ -3,6 +3,8 @@
 <!--
 **Ryan-Lim-27/Ryan-Lim-27** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
+This repo consist of pyton codes that uses a tele bot to control my home lights via google api
+
 Here are some ideas to get you started:
 
 - 🔭 I’m currently working on ...
