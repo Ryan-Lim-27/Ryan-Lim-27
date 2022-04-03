@@ -1,0 +1,45 @@
+function doGet(e) {
+  Logger.log(e);
+  return HtmlService.createTemplateFromFile('page').evaluate();
+}
+
+function userInput(values){
+  var url = 'https://docs.google.com/spreadsheets/';
+  var ss= SpreadsheetApp.openByUrl(url);
+  var dataSheet = ss.getSheetByName('Logger');
+  const cell = ['D3','E3','F3','G3','H3','I3'];
+  const fields = ['salt','nitrate','ph','kh','ca','mg'];
+  for (let x=0; x < 6; x++){
+    var result= dataSheet.getRange(cell[x]);
+    result.setValue(values[fields[x]]);
+  }
+}
+
+function getData()  { 
+  var url = 'https://docs.google.com/spreadsheets';
+  var ss= SpreadsheetApp.openByUrl(url);
+  var dataSheet = ss.getSheetByName('Logger'); 
+  var heading = dataSheet.getRange("C2:I2").getValues();
+  var data = dataSheet.getRange("C5:I5").getValues();
+  var result = heading.concat(data);
+  //console.log(result);
+  return result;
+}
+function addData(){
+  var url = 'https://docs.google.com/spreadsheets/';
+  var ss= SpreadsheetApp.openByUrl(url);
+  var dataSheet = ss.getSheetByName('Logger'); 
+  var data = dataSheet.getRange("C5:I5").getValues();
+  dataSheet.insertRows(7,1);
+  dataSheet.getRange("C7:I7").setValues(data);
+
+}
+function dat(){
+  var url = 'https://docs.google.com/spreadsheets/';
+  var ss= SpreadsheetApp.openByUrl(url);
+  var dataSheet = ss.getSheetByName('Logger');
+  var data = dataSheet.getRange("D5:I5").getValues();
+  console.log(data);
+  var result = [[10,"20"],["time"]];
+  return data
+}
