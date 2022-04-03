@@ -162,7 +162,7 @@ def end(update: Update, context: CallbackContext) -> str:
 def main():
 
     
-    updater = Updater("1702411434:AAHTGnqiFrqTURQYJ0AwVrHl1jjRhg7C2xA")
+    updater = Updater("")
     dispatcher = updater.dispatcher
 
     
@@ -205,103 +205,5 @@ if __name__ == '__main__':
     main()
 
 
-'''
-conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start',start)],
-        states={
-            'rooms':[ 
-                CallbackQueryHandler(study, pattern='^'+'study'+'$'),
-                CallbackQueryHandler(living, pattern='^'+'living'+'$'),
-                CallbackQueryHandler(end,pattern='^'+ 'end' +'$'),  
-            ],
-            'confirm':[ 
-                CallbackQueryHandler(confirm, pattern='^'+'on'+'$'),
-                CallbackQueryHandler(confirm,pattern='^'+ 'off' +'$'), 
-                CallbackQueryHandler(confirm, pattern='^'+'lon'+'$'),
-                CallbackQueryHandler(confirm,pattern='^'+ 'loff' +'$'),
-                CallbackQueryHandler(confirm, pattern='^'+'son'+'$'),
-                CallbackQueryHandler(confirm,pattern='^'+ 'soff' +'$'),
-            ],
-            'end':[ 
-                CallbackQueryHandler(room_name, pattern='^'+'back'+'$'),
-                CallbackQueryHandler(end,pattern='^'+ 'done' +'$'),  
-            ],
-        },
-        fallbacks=[CommandHandler('start', start)], 
-    )
 
-def confirm(update: Update, context: CallbackContext) -> str:
-    global light_status
-    global room_func
-    query = update.callback_query
-    query.answer()
-
-    keyboard = [
-        [
-            InlineKeyboardButton("Done", callback_data= 'done'),
-
-        ],
-        [
-            InlineKeyboardButton(f"Return to {room_name} room menu", callback_data= 'back'),
-        ],
-        
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    query.message.reply_text('Please choose:', reply_markup=reply_markup)
-    query.edit_message_text(text=f"{room_name} Rooms's lights are turn {query.data}")
-    light_status = query.data
-    print(room_name)
-    selection(room_name)
-    
-    print("in confirm func " + str(x))
-    #print("room function: "+room_func(x))
-    return 'end'
-
-living_handler = ConversationHandler(
-        entry_points=[
-            CallbackQueryHandler(living, pattern='^' + 'living' +'$'),
-        ],
-        states={
-            'confirm':[ 
-                CallbackQueryHandler(end, pattern='^'+'lon'+'$'),
-                CallbackQueryHandler(end,pattern='^'+ 'loff' +'$'),
-                CallbackQueryHandler(end, pattern='^'+'son'+'$'),
-                CallbackQueryHandler(end,pattern='^'+ 'soff' +'$'),
-            ],
-            
-
-        },
-        fallbacks=[
-            
-            CallbackQueryHandler(end,pattern='^'+ 'end' +'$'),
-        ], 
-        
-        map_to_parent={
-            'confirm':'end',
-        }
-        
-    )
-
-study_handler = ConversationHandler(
-        entry_points=[
-            CallbackQueryHandler(study, pattern='^' + 'study' +'$'),
-        ],
-        states={
-            'confirm':[ 
-                CallbackQueryHandler(end, pattern='^'+'on'+'$'),
-                CallbackQueryHandler(end,pattern='^'+ 'off' +'$'), 
-            ],
-
-        },
-        fallbacks=[
-            
-            CallbackQueryHandler(end,pattern='^'+ 'done' +'$'),
-        ], 
-
-        map_to_parent={
-            'end':'end',
-        }
-    )
-
-'''
+           
